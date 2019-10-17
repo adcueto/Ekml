@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +48,33 @@
             this.Export = new System.Windows.Forms.Button();
             this.labelIndex = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnRng5 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textVal10 = new System.Windows.Forms.TextBox();
+            this.textVal9 = new System.Windows.Forms.TextBox();
+            this.btnRng4 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textVal8 = new System.Windows.Forms.TextBox();
+            this.textVal7 = new System.Windows.Forms.TextBox();
+            this.btnRng3 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textVal6 = new System.Windows.Forms.TextBox();
+            this.textVal5 = new System.Windows.Forms.TextBox();
+            this.btnRng2 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textVal4 = new System.Windows.Forms.TextBox();
+            this.textVal3 = new System.Windows.Forms.TextBox();
+            this.btnRng1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textVal2 = new System.Windows.Forms.TextBox();
+            this.textVal1 = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -194,9 +220,9 @@
             // 
             // Export
             // 
-            this.Export.Location = new System.Drawing.Point(18, 337);
+            this.Export.Location = new System.Drawing.Point(12, 337);
             this.Export.Name = "Export";
-            this.Export.Size = new System.Drawing.Size(159, 23);
+            this.Export.Size = new System.Drawing.Size(165, 23);
             this.Export.TabIndex = 3;
             this.Export.Text = "Plotter";
             this.Export.UseVisualStyleBackColor = true;
@@ -205,7 +231,8 @@
             // labelIndex
             // 
             this.labelIndex.AutoSize = true;
-            this.labelIndex.Location = new System.Drawing.Point(15, 245);
+            this.labelIndex.BackColor = System.Drawing.Color.Transparent;
+            this.labelIndex.Location = new System.Drawing.Point(193, 267);
             this.labelIndex.Name = "labelIndex";
             this.labelIndex.Size = new System.Drawing.Size(32, 13);
             this.labelIndex.TabIndex = 9;
@@ -213,31 +240,258 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnRng5);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.textVal10);
+            this.groupBox2.Controls.Add(this.textVal9);
+            this.groupBox2.Controls.Add(this.btnRng4);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.textVal8);
+            this.groupBox2.Controls.Add(this.textVal7);
+            this.groupBox2.Controls.Add(this.btnRng3);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.textVal6);
+            this.groupBox2.Controls.Add(this.textVal5);
+            this.groupBox2.Controls.Add(this.btnRng2);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.textVal4);
+            this.groupBox2.Controls.Add(this.textVal3);
+            this.groupBox2.Controls.Add(this.btnRng1);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.textVal2);
+            this.groupBox2.Controls.Add(this.textVal1);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox2.Location = new System.Drawing.Point(196, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 206);
+            this.groupBox2.Size = new System.Drawing.Size(165, 206);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Range Values";
+            // 
+            // btnRng5
+            // 
+            this.btnRng5.BackColor = System.Drawing.Color.White;
+            this.btnRng5.Location = new System.Drawing.Point(10, 165);
+            this.btnRng5.Name = "btnRng5";
+            this.btnRng5.Size = new System.Drawing.Size(22, 21);
+            this.btnRng5.TabIndex = 27;
+            this.btnRng5.UseVisualStyleBackColor = false;
+            this.btnRng5.Click += new System.EventHandler(this.btnRng5_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(88, 169);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(16, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "to";
+            // 
+            // textVal10
+            // 
+            this.textVal10.Location = new System.Drawing.Point(107, 166);
+            this.textVal10.Name = "textVal10";
+            this.textVal10.Size = new System.Drawing.Size(46, 20);
+            this.textVal10.TabIndex = 26;
+            this.textVal10.TextChanged += new System.EventHandler(this.textVal10_TextChanged);
+            // 
+            // textVal9
+            // 
+            this.textVal9.Location = new System.Drawing.Point(36, 166);
+            this.textVal9.Name = "textVal9";
+            this.textVal9.Size = new System.Drawing.Size(46, 20);
+            this.textVal9.TabIndex = 25;
+            this.textVal9.TextChanged += new System.EventHandler(this.textVal9_TextChanged);
+            // 
+            // btnRng4
+            // 
+            this.btnRng4.BackColor = System.Drawing.Color.White;
+            this.btnRng4.Location = new System.Drawing.Point(10, 129);
+            this.btnRng4.Name = "btnRng4";
+            this.btnRng4.Size = new System.Drawing.Size(22, 21);
+            this.btnRng4.TabIndex = 23;
+            this.btnRng4.UseVisualStyleBackColor = false;
+            this.btnRng4.Click += new System.EventHandler(this.btnRng4_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(88, 133);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(16, 13);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "to";
+            // 
+            // textVal8
+            // 
+            this.textVal8.Location = new System.Drawing.Point(107, 130);
+            this.textVal8.Name = "textVal8";
+            this.textVal8.Size = new System.Drawing.Size(46, 20);
+            this.textVal8.TabIndex = 22;
+            this.textVal8.TextChanged += new System.EventHandler(this.textVal8_TextChanged);
+            // 
+            // textVal7
+            // 
+            this.textVal7.Location = new System.Drawing.Point(36, 130);
+            this.textVal7.Name = "textVal7";
+            this.textVal7.Size = new System.Drawing.Size(46, 20);
+            this.textVal7.TabIndex = 21;
+            this.textVal7.TextChanged += new System.EventHandler(this.textVal7_TextChanged);
+            // 
+            // btnRng3
+            // 
+            this.btnRng3.BackColor = System.Drawing.Color.White;
+            this.btnRng3.Location = new System.Drawing.Point(10, 94);
+            this.btnRng3.Name = "btnRng3";
+            this.btnRng3.Size = new System.Drawing.Size(22, 21);
+            this.btnRng3.TabIndex = 19;
+            this.btnRng3.UseVisualStyleBackColor = false;
+            this.btnRng3.Click += new System.EventHandler(this.btnRng3_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(88, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "to";
+            // 
+            // textVal6
+            // 
+            this.textVal6.Location = new System.Drawing.Point(107, 95);
+            this.textVal6.Name = "textVal6";
+            this.textVal6.Size = new System.Drawing.Size(46, 20);
+            this.textVal6.TabIndex = 18;
+            this.textVal6.TextChanged += new System.EventHandler(this.textVal6_TextChanged);
+            // 
+            // textVal5
+            // 
+            this.textVal5.Location = new System.Drawing.Point(36, 95);
+            this.textVal5.Name = "textVal5";
+            this.textVal5.Size = new System.Drawing.Size(46, 20);
+            this.textVal5.TabIndex = 17;
+            this.textVal5.TextChanged += new System.EventHandler(this.textVal5_TextChanged);
+            // 
+            // btnRng2
+            // 
+            this.btnRng2.BackColor = System.Drawing.Color.White;
+            this.btnRng2.Location = new System.Drawing.Point(10, 61);
+            this.btnRng2.Name = "btnRng2";
+            this.btnRng2.Size = new System.Drawing.Size(22, 21);
+            this.btnRng2.TabIndex = 15;
+            this.btnRng2.UseVisualStyleBackColor = false;
+            this.btnRng2.Click += new System.EventHandler(this.btnRng2_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(88, 65);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(16, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "to";
+            // 
+            // textVal4
+            // 
+            this.textVal4.Location = new System.Drawing.Point(107, 62);
+            this.textVal4.Name = "textVal4";
+            this.textVal4.Size = new System.Drawing.Size(46, 20);
+            this.textVal4.TabIndex = 14;
+            this.textVal4.TextChanged += new System.EventHandler(this.textVal4_TextChanged);
+            // 
+            // textVal3
+            // 
+            this.textVal3.Location = new System.Drawing.Point(36, 62);
+            this.textVal3.Name = "textVal3";
+            this.textVal3.Size = new System.Drawing.Size(46, 20);
+            this.textVal3.TabIndex = 13;
+            this.textVal3.TextChanged += new System.EventHandler(this.textVal3_TextChanged);
+            // 
+            // btnRng1
+            // 
+            this.btnRng1.BackColor = System.Drawing.Color.White;
+            this.btnRng1.Location = new System.Drawing.Point(10, 30);
+            this.btnRng1.Name = "btnRng1";
+            this.btnRng1.Size = new System.Drawing.Size(22, 21);
+            this.btnRng1.TabIndex = 12;
+            this.btnRng1.UseVisualStyleBackColor = false;
+            this.btnRng1.Click += new System.EventHandler(this.btnRng1_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(88, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "to";
+            // 
+            // textVal2
+            // 
+            this.textVal2.Location = new System.Drawing.Point(107, 31);
+            this.textVal2.Name = "textVal2";
+            this.textVal2.Size = new System.Drawing.Size(46, 20);
+            this.textVal2.TabIndex = 2;
+            this.textVal2.TextChanged += new System.EventHandler(this.textVal2_TextChanged);
+            // 
+            // textVal1
+            // 
+            this.textVal1.Location = new System.Drawing.Point(36, 31);
+            this.textVal1.Name = "textVal1";
+            this.textVal1.Size = new System.Drawing.Size(46, 20);
+            this.textVal1.TabIndex = 1;
+            this.textVal1.TextChanged += new System.EventHandler(this.textVal1_TextChanged);
+            // 
+            // progressBar
+            // 
+            this.progressBar.AccessibleName = "";
+            this.progressBar.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBar.Location = new System.Drawing.Point(212, 337);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(383, 23);
+            this.progressBar.TabIndex = 11;
+            this.progressBar.Tag = "hola";
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(12, 239);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(165, 92);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Export";
             // 
             // Form
             // 
             this.AccessibleDescription = "";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(644, 372);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelIndex);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.Export);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Form";
             this.Text = "Export Kml";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,6 +518,30 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelIndex;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textVal2;
+        private System.Windows.Forms.TextBox textVal1;
+        private System.Windows.Forms.Button btnRng1;
+        private System.Windows.Forms.Button btnRng4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textVal8;
+        private System.Windows.Forms.TextBox textVal7;
+        private System.Windows.Forms.Button btnRng3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textVal6;
+        private System.Windows.Forms.TextBox textVal5;
+        private System.Windows.Forms.Button btnRng2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textVal4;
+        private System.Windows.Forms.TextBox textVal3;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnRng5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textVal10;
+        private System.Windows.Forms.TextBox textVal9;
     }
 }
 
