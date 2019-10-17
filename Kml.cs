@@ -13,7 +13,21 @@ namespace Ekml
     {
         private string fileRead = string.Empty;
         private string fileWrite = string.Empty;
+       
 
+        public string FileRead
+        {
+            get { return fileRead; }
+            set { fileRead = value; }
+        }
+
+        public string FileWrite
+        {
+            get { return fileWrite; }
+            set { fileWrite = value; }
+        }
+
+        
         public virtual void Write(string lineInput)
         {
 
@@ -28,9 +42,9 @@ namespace Ekml
             }
 
         }
-        public virtual void Write(string lineInput,object arg0)
+        public virtual void Write(string lineInput, object arg0)
         {
-            
+
             FileInfo fi = new FileInfo(fileWrite);
             if (fi.Exists)
             {
@@ -40,7 +54,7 @@ namespace Ekml
                     sw.Close();
                 }
             }
-       
+
         }
 
         public virtual void Write(string lineInput, object arg0, object arg1)
@@ -51,7 +65,7 @@ namespace Ekml
             {
                 using (StreamWriter sw = fi.AppendText())
                 {
-                    sw.WriteLine(lineInput, arg0,arg1);
+                    sw.WriteLine(lineInput, arg0, arg1);
                     sw.Close();
                 }
             }
@@ -66,7 +80,7 @@ namespace Ekml
             {
                 using (StreamWriter sw = fi.AppendText())
                 {
-                    sw.WriteLine(lineInput, arg0, arg1,arg2);
+                    sw.WriteLine(lineInput, arg0, arg1, arg2);
                     sw.Close();
                 }
             }
@@ -75,39 +89,69 @@ namespace Ekml
         //Create a kml file
         public void Create(string fileName)
         {
-            fileWrite = $"{fileName}.kml";
+            FileWrite = $"{fileName}.kml";
             FileInfo fileKML = new FileInfo(fileWrite);
 
-            if (fileKML.Exists){ fileKML.Delete();}
+            if (fileKML.Exists) { fileKML.Delete(); }
             // Create a file
-            using (StreamWriter sw = fileKML.CreateText()){ sw.Close();}
+            using (StreamWriter sw = fileKML.CreateText()) { sw.Close(); }
 
         }
 
-        public void PlaceMark(string range, int source, int lat, int lon, string path, List<string> data)
+        //Create a PlaceMark
+        public void PlaceMark(int source, int lat, int lon, List<string> data, string[] ranges)
         {
- 
-            using (TextFieldParser csvParser = new TextFieldParser(path))
+            Plotter Point = new Plotter();
+
+            using (TextFieldParser csvParser = new TextFieldParser(fileRead))
             {
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = true;
-
+                Console.WriteLine("archivo de lectura: {0}", fileRead);
                 // Skip the row with the column names
                 csvParser.ReadLine();
-           
+
                 while (!csvParser.EndOfData)
                 {
                     // Read current line fields, pointer moves to the next line.
                     string[] Values = csvParser.ReadFields();
+                    Console.WriteLine("valor {0} de referencia : {1}", source, Values[source]);
                     Write("  <Placemark>");
                     Write("      <name>{0}</name>", Values[source]);
-                    Write("      <styleUrl>#{0}</styleUrl>",range);
+
+                    if (Point.CompareRange(ranges[0], ranges[1], Values[source]))
+                    {
+                        Write("      <styleUrl>#{0}</styleUrl>", "Range0");
+                        Console.WriteLine("archivo de lectura: {0}", "Range0");
+                    }
+                    else if (Point.CompareRange(ranges[2], ranges[3], Values[source]))
+                    {
+                        Write("      <styleUrl>#{0}</styleUrl>", "Range1");
+                        Console.WriteLine("archivo de lectura: {0}", "Range1");
+                    }
+                    else if (Point.CompareRange(ranges[4], ranges[5], Values[source]))
+                    {
+                        Write("      <styleUrl>#{0}</styleUrl>", "Range2");
+                        Console.WriteLine("archivo de lectura: {0}", "Range2");
+                    }
+                    else if (Point.CompareRange(ranges[6], ranges[7], Values[source]))
+                    {
+                        Write("      <styleUrl>#{0}</styleUrl>", "Range3");
+                        Console.WriteLine("archivo de lectura: {0}", "Range3");
+                    }
+                    else 
+                    {
+                        Write("      <styleUrl>#{0}</styleUrl>", "Range4");
+                        Console.WriteLine("archivo de lectura: {0}", "Range4");
+
+                    }
+
                     Write("      <ExtendedData>");
 
                     for (int i = 0; i < data.Count; i++)
                     {
-                    Write("         <Data name='{0}'>{1}</Data>",data[i],Values[i]);
+                        Write("         <Data name='{0}'>{1}</Data>", data[i], Values[i]);
                     }
 
                     Write("      </ExtendedData>");
@@ -118,12 +162,12 @@ namespace Ekml
                 }
             }
         }
-
-
-        public void StyleRange(string range,string name, object color,object scale)
+        //
+        //Create a StyleRange
+        //
+        public void StyleRange(string range, object color, object scale)
         {
-            Write("<name>{0}</name>",name);
-            Write("  <Style id='{0}'>",range);
+            Write("  <Style id='{0}'>", range);
             Write("      <IconStyle>");
             Write("          <color>{0}</color>", color);
             Write("          <scale>{0}</scale>", scale);
@@ -134,20 +178,24 @@ namespace Ekml
             Write("  </Style>");
         }
 
-        public void Header()
+        public void Header(string name)
         {
             Write("<?xml version='1.1' encoding='UTF-8'?>");
             Write("<kml xmlns='http://www.opengis.net/kml/2.2' xmlns:gx='http://www.google.com/kml/ext/2.2' xmlns:kml='http://www.opengis.net/kml/2.2' xmlns:atom='http://www.w3.org/2005/Atom'>");
             Write("<Document>");
+            Write("<name>{0}</name>", name);
         }
         public void End()
         {
             Write("</Document>");
             Write("</kml>");
-
-
         }
 
+        public void imprimir(string[] name)
+        {
+            MessageBox.Show(name[0]);
+  
+        }
     }
 }
 
