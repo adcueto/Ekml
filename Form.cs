@@ -14,12 +14,12 @@ namespace Ekml
     {
         public List<string> ColumnList = new List<string>();
         public string PathFile,dSource;
-        public int iSource, iLatitude, iLongitude;
-        public string hexOPA = "ff";
+        public int iSource, iLatitude, iLongitude, DataSource;
+        public string hexOPA = "cc";
         public string[] hexBGR = { "ff", "ff", "ff", "ff","ff" };
-        public double sizePoint = 0.6;
+        public string sizePoint = "0.6";
         public string[] textValues= { "0", "0", "0", "0", "0", "0","0","0","0","0"};
-      
+        public bool checkNameEnabled = true;
 
 
         public Form()
@@ -31,7 +31,8 @@ namespace Ekml
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Width = 660;
             this.Height = 410;
-            
+            this.cmbSize.Text = "0.6";
+            this.cmbOpacity.Text = "80";
         }
 
 
@@ -43,7 +44,7 @@ namespace Ekml
             PathFile = CsvFile.Path;
 
             this.comboBox1.Items.Clear();
-            this.comboBox2.Items.Clear(); ;
+            this.comboBox2.Items.Clear();
             this.comboBox3.Items.Clear();
 
             //Does the route exist?
@@ -157,65 +158,78 @@ namespace Ekml
         {
             plotter();
         }
-
-
-
+        
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             iSource = this.comboBox1.SelectedIndex;
-            dSource = this.comboBox1.SelectedItem.ToString();
-            labelIndex.Text = dSource;
+        }
 
+        private void textVal0_TextChanged(object sender, EventArgs e)
+        {
+            textValues[0]= textVal0.Text;
         }
 
         private void textVal1_TextChanged(object sender, EventArgs e)
         {
-            textValues[0]= textVal1.Text;
+            textValues[1] = textVal1.Text;
         }
 
         private void textVal2_TextChanged(object sender, EventArgs e)
         {
-            textValues[1] = textVal2.Text;
+            textValues[2] = textVal2.Text;
         }
 
         private void textVal3_TextChanged(object sender, EventArgs e)
         {
-            textValues[2] = textVal3.Text;
+            textValues[3] = textVal3.Text;
         }
 
         private void textVal4_TextChanged(object sender, EventArgs e)
         {
-            textValues[3] = textVal4.Text;
+            textValues[4] = textVal4.Text;
         }
 
         private void textVal5_TextChanged(object sender, EventArgs e)
         {
-            textValues[4] = textVal5.Text;
+            textValues[5] = textVal5.Text;
         }
 
         private void textVal6_TextChanged(object sender, EventArgs e)
         {
-            textValues[5] = textVal6.Text;
+            textValues[6] = textVal6.Text;
         }
 
         private void textVal7_TextChanged(object sender, EventArgs e)
         {
-            textValues[6] = textVal7.Text;
+            textValues[7] = textVal7.Text;
         }
 
         private void textVal8_TextChanged(object sender, EventArgs e)
         {
-            textValues[7] = textVal8.Text;
+            textValues[8] = textVal8.Text;
         }
 
         private void textVal9_TextChanged(object sender, EventArgs e)
         {
-            textValues[8] = textVal9.Text;
+            textValues[9] = textVal9.Text;
         }
 
-        private void textVal10_TextChanged(object sender, EventArgs e)
+        private void cmbOpacity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textValues[9] = textVal10.Text;
+            int vaOpa= (Int32.Parse(cmbOpacity.Text)*255)/100;
+            hexOPA = vaOpa.ToString("x2");
+        }
+
+        private void cmbSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sizePoint = cmbSize.Text;
+        }
+
+        private void checkName_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkName.Enabled) { checkNameEnabled = false; }
+            else { checkNameEnabled = true; }
+            
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,29 +250,33 @@ namespace Ekml
             try
             {
                 Kml FileKml = new Kml();
-                FileKml.Create(dSource);
+                Notify Notification = new Notify();
+
+                FileKml.Create(ColumnList[iSource]);
                 FileKml.Header(ColumnList[iSource]);
                 FileKml.FileRead = PathFile;
+                FileKml.labelNameEnabled = checkNameEnabled;
                 
-                progressBar.Value = 10;
-
+                this.progressBar.Value = 10;
+                
                 FileKml.StyleRange("Range0", hexOPA + hexBGR[0], sizePoint);
                 FileKml.StyleRange("Range1", hexOPA + hexBGR[1], sizePoint);
                 FileKml.StyleRange("Range2", hexOPA + hexBGR[2], sizePoint);
                 FileKml.StyleRange("Range3", hexOPA + hexBGR[3], sizePoint);
                 FileKml.StyleRange("Range4", hexOPA + hexBGR[4], sizePoint);
 
+
                 progressBar.Value = 15;
-                if (iLatitude == 0) { MessageBox.Show("seleccione el valor de latitud y longitud"); }
+                if (iLatitude == 0) { MessageBox.Show("Select latitude and longitude value"); }
                 else
                 {
                     FileKml.PlaceMark(iSource, iLatitude, iLongitude, ColumnList, textValues);
                     this.progressBar.Value = 80;
                 }
-                this.progressBar.Value = 100;
                 FileKml.End();
-
-               // MessageBox.Show("file created");
+                this.progressBar.Value = 100;
+                Notification.NotiCreated();
+                
             }
 
             catch (Exception ex)
