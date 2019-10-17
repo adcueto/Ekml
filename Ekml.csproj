@@ -56,6 +56,9 @@
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Kml.cs" />
+    <Compile Include="Notify.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Plotter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
