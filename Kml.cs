@@ -13,7 +13,7 @@ namespace Ekml
     {
         private string fileRead = string.Empty;
         private string fileWrite = string.Empty;
-       
+        private bool labelName = true;
 
         public string FileRead
         {
@@ -27,7 +27,13 @@ namespace Ekml
             set { fileWrite = value; }
         }
 
-        
+        public bool labelNameEnabled
+        {
+            get { return labelName; }
+            set { labelName = value; }
+        }
+
+
         public virtual void Write(string lineInput)
         {
 
@@ -108,7 +114,7 @@ namespace Ekml
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { "," });
                 csvParser.HasFieldsEnclosedInQuotes = true;
-                Console.WriteLine("archivo de lectura: {0}", fileRead);
+
                 // Skip the row with the column names
                 csvParser.ReadLine();
 
@@ -116,35 +122,37 @@ namespace Ekml
                 {
                     // Read current line fields, pointer moves to the next line.
                     string[] Values = csvParser.ReadFields();
-                    Console.WriteLine("valor {0} de referencia : {1}", source, Values[source]);
-                    Write("  <Placemark>");
-                    Write("      <name>{0}</name>", Values[source]);
 
+                    Write("  <Placemark>");
+                    if (labelName)
+                    {
+                        Write("      <name>{0}</name>", Values[source]);
+                    }
+                    else
+                    {
+                        Write("      <name>{0}</name>", null);
+                    }
+
+                    // Evaluate the ranges of the point.
                     if (Point.CompareRange(ranges[0], ranges[1], Values[source]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range0");
-                        Console.WriteLine("archivo de lectura: {0}", "Range0");
                     }
                     else if (Point.CompareRange(ranges[2], ranges[3], Values[source]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range1");
-                        Console.WriteLine("archivo de lectura: {0}", "Range1");
                     }
                     else if (Point.CompareRange(ranges[4], ranges[5], Values[source]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range2");
-                        Console.WriteLine("archivo de lectura: {0}", "Range2");
                     }
                     else if (Point.CompareRange(ranges[6], ranges[7], Values[source]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range3");
-                        Console.WriteLine("archivo de lectura: {0}", "Range3");
                     }
                     else 
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range4");
-                        Console.WriteLine("archivo de lectura: {0}", "Range4");
-
                     }
 
                     Write("      <ExtendedData>");
@@ -191,11 +199,6 @@ namespace Ekml
             Write("</kml>");
         }
 
-        public void imprimir(string[] name)
-        {
-            MessageBox.Show(name[0]);
-  
-        }
     }
 }
 
