@@ -12,7 +12,7 @@ namespace Ekml
     class Csv
     {
         private string filePath = string.Empty;
-        private int ColCount, lineCount;
+        private int lineCount;
         public List<string> ColList = new List<string>();
         public List<string> ValList = new List<string>();
       
