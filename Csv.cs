@@ -24,9 +24,12 @@ namespace Ekml
 
         public void LoadFile()
         {
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Csv files (*.csv)|*.csv|All files (*.*)|*.*";
-            open.Title = "Csv files";
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = "Csv files (*.csv)|*.csv|All files (*.*)|*.*",
+                Title = "Csv files"
+            };
+
 
             if (open.ShowDialog() == DialogResult.OK)
             {

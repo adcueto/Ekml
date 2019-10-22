@@ -94,7 +94,7 @@
             this.comboBox1.Size = new System.Drawing.Size(139, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.Tag = "";
-            this.comboBox1.Text = "select a data";
+            this.comboBox1.Text = "Select the Data";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // menuStrip1
@@ -181,7 +181,7 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(139, 21);
             this.comboBox3.TabIndex = 8;
-            this.comboBox3.Text = "select longitude";
+            this.comboBox3.Text = "Select Longitude";
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // comboBox2
@@ -191,7 +191,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(139, 21);
             this.comboBox2.TabIndex = 7;
-            this.comboBox2.Text = "select latitude";
+            this.comboBox2.Text = "Select Latitude";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label3
@@ -493,9 +493,9 @@
             this.checkName.AutoSize = true;
             this.checkName.Location = new System.Drawing.Point(10, 63);
             this.checkName.Name = "checkName";
-            this.checkName.Size = new System.Drawing.Size(121, 17);
+            this.checkName.Size = new System.Drawing.Size(79, 17);
             this.checkName.TabIndex = 13;
-            this.checkName.Text = "Disable Label Name";
+            this.checkName.Text = "Hide Name";
             this.checkName.UseVisualStyleBackColor = true;
             this.checkName.CheckedChanged += new System.EventHandler(this.checkName_CheckedChanged);
             // 

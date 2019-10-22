@@ -33,10 +33,11 @@ namespace Ekml
 
         public void LoadFile()
         {
-            OpenFileDialog open = new OpenFileDialog();
-            //open.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-            open.Filter = "Excel files (*.csv)|*.csv|All files (*.*)|*.*";
-            open.Title = "Excel files";
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+                Title = "Excel files"
+            };
 
             if (open.ShowDialog() == DialogResult.OK)
             {

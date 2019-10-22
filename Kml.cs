@@ -11,33 +11,28 @@ namespace Ekml
 {
     class Kml
     {
-        private string fileRead = string.Empty;
-        private string fileWrite = string.Empty;
-        private bool labelName = true;
+            
 
-        public string FileRead
+        public string Color { get; set; }
+        public string Scale { get; set; }
+        public string Opacity { get; set; }
+        public string Name { get; set; }
+        public string PointName { get; set; }
+        public bool PointNameDisable { get; set; }
+        public string KmlFilePath { get; set; }
+        public string CsvFilePath { get; set; }
+        public string PointIcon { get; set; }
+        public Kml()
         {
-            get { return fileRead; }
-            set { fileRead = value; }
-        }
+            KmlFilePath = string.Empty;
+            CsvFilePath = string.Empty;
 
-        public string FileWrite
-        {
-            get { return fileWrite; }
-            set { fileWrite = value; }
         }
-
-        public bool labelNameEnabled
-        {
-            get { return labelName; }
-            set { labelName = value; }
-        }
-
 
         public virtual void Write(string lineInput)
         {
 
-            FileInfo fi = new FileInfo(fileWrite);
+            FileInfo fi = new FileInfo(KmlFilePath);
             if (fi.Exists)
             {
                 using (StreamWriter sw = fi.AppendText())
@@ -51,7 +46,7 @@ namespace Ekml
         public virtual void Write(string lineInput, object arg0)
         {
 
-            FileInfo fi = new FileInfo(fileWrite);
+            FileInfo fi = new FileInfo(KmlFilePath);
             if (fi.Exists)
             {
                 using (StreamWriter sw = fi.AppendText())
@@ -66,7 +61,7 @@ namespace Ekml
         public virtual void Write(string lineInput, object arg0, object arg1)
         {
 
-            FileInfo fi = new FileInfo(fileWrite);
+            FileInfo fi = new FileInfo(KmlFilePath);
             if (fi.Exists)
             {
                 using (StreamWriter sw = fi.AppendText())
@@ -81,7 +76,7 @@ namespace Ekml
         public virtual void Write(string lineInput, object arg0, object arg1, object arg2)
         {
 
-            FileInfo fi = new FileInfo(fileWrite);
+            FileInfo fi = new FileInfo(KmlFilePath);
             if (fi.Exists)
             {
                 using (StreamWriter sw = fi.AppendText())
@@ -93,40 +88,40 @@ namespace Ekml
 
         }
         //Create a kml file
-        public void Create(string fileName)
+        public void Create()
         {
-            FileWrite = $"{fileName}.kml";
-            FileInfo fileKML = new FileInfo(fileWrite);
+            KmlFilePath = $"{Name}.kml";
+            FileInfo KmlFile = new FileInfo(KmlFilePath);
 
-            if (fileKML.Exists) { fileKML.Delete(); }
+            if (KmlFile.Exists) { KmlFile.Delete(); }
             // Create a file
-            using (StreamWriter sw = fileKML.CreateText()) { sw.Close(); }
+            using (StreamWriter sw = KmlFile.CreateText()) { sw.Close(); }
 
         }
 
         //Create a PlaceMark
-        public void PlaceMark(int source, int lat, int lon, List<string> data, string[] ranges)
+        public void PlaceMark(int dataIndex, int latIndex, int lonIndex, List<string> colData, string[] rngValues)
         {
-            Plotter Point = new Plotter();
+            Point PointKml = new Point();
 
-            using (TextFieldParser csvParser = new TextFieldParser(fileRead))
+            using (TextFieldParser CsvParser = new TextFieldParser(CsvFilePath))
             {
-                csvParser.CommentTokens = new string[] { "#" };
-                csvParser.SetDelimiters(new string[] { "," });
-                csvParser.HasFieldsEnclosedInQuotes = true;
+                CsvParser.CommentTokens = new string[] { "#" };
+                CsvParser.SetDelimiters(new string[] { "," });
+                CsvParser.HasFieldsEnclosedInQuotes = true;
 
                 // Skip the row with the column names
-                csvParser.ReadLine();
+                CsvParser.ReadLine();
 
-                while (!csvParser.EndOfData)
+                while (!CsvParser.EndOfData)
                 {
                     // Read current line fields, pointer moves to the next line.
-                    string[] Values = csvParser.ReadFields();
+                    string[] Values = CsvParser.ReadFields();
 
                     Write("  <Placemark>");
-                    if (labelName)
+                    if (PointNameDisable)
                     {
-                        Write("      <name>{0}</name>", Values[source]);
+                        Write("      <name>{0}</name>", Values[dataIndex]);
                     }
                     else
                     {
@@ -134,19 +129,19 @@ namespace Ekml
                     }
 
                     // Evaluate the ranges of the point.
-                    if (Point.CompareRange(ranges[0], ranges[1], Values[source]))
+                    if (PointKml.Between(rngValues[0], rngValues[1], Values[dataIndex]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range0");
                     }
-                    else if (Point.CompareRange(ranges[2], ranges[3], Values[source]))
+                    else if (PointKml.Between(rngValues[2], rngValues[3], Values[dataIndex]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range1");
                     }
-                    else if (Point.CompareRange(ranges[4], ranges[5], Values[source]))
+                    else if (PointKml.Between(rngValues[4], rngValues[5], Values[dataIndex]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range2");
                     }
-                    else if (Point.CompareRange(ranges[6], ranges[7], Values[source]))
+                    else if (PointKml.Between(rngValues[6], rngValues[7], Values[dataIndex]))
                     {
                         Write("      <styleUrl>#{0}</styleUrl>", "Range3");
                     }
@@ -157,14 +152,14 @@ namespace Ekml
 
                     Write("      <ExtendedData>");
 
-                    for (int i = 0; i < data.Count; i++)
+                    for (int i = 0; i < colData.Count; i++)
                     {
-                        Write("         <Data name='{0}'>{1}</Data>", data[i], Values[i]);
+                        Write("         <Data name='{0}'>{1}</Data>", colData[i], Values[i]);
                     }
 
                     Write("      </ExtendedData>");
                     Write("      <Point>");
-                    Write("          <coordinates>{0},{1},{2}</coordinates>", Values[lon], Values[lat], 10);
+                    Write("          <coordinates>{0},{1},{2}</coordinates>", Values[lonIndex], Values[latIndex], 10);
                     Write("      </Point>");
                     Write("  </Placemark>");
                 }
@@ -173,12 +168,14 @@ namespace Ekml
         //
         //Create a StyleRange
         //
-        public void StyleRange(string range, object color, object scale)
+        public void StyleRange(string rngName, string rgbColor)
         {
-            Write("  <Style id='{0}'>", range);
+            Color = Opacity + rgbColor;
+
+            Write("  <Style id='{0}'>", rngName);
             Write("      <IconStyle>");
-            Write("          <color>{0}</color>", color);
-            Write("          <scale>{0}</scale>", scale);
+            Write("          <color>{0}</color>", Color);
+            Write("          <scale>{0}</scale>", Scale);
             Write("          <Icon>");
             Write("              <href>files/white_circle.png</href>");
             Write("          </Icon>");
@@ -186,12 +183,12 @@ namespace Ekml
             Write("  </Style>");
         }
 
-        public void Header(string name)
+        public void Header()
         {
             Write("<?xml version='1.1' encoding='UTF-8'?>");
             Write("<kml xmlns='http://www.opengis.net/kml/2.2' xmlns:gx='http://www.google.com/kml/ext/2.2' xmlns:kml='http://www.opengis.net/kml/2.2' xmlns:atom='http://www.w3.org/2005/Atom'>");
             Write("<Document>");
-            Write("<name>{0}</name>", name);
+            Write("<name>{0}</name>", Name);
         }
         public void End()
         {
